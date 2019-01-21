@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/styleForm.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <title>Form | Add</title>
+</head>
+
+<body class="Site" onclick="Disp()">
+    <header>
+        <div class="arrow">
+            <img src="img/arrowsForm.png" onclick="location.href='index.html'" alt="">
+        </div>
+        <input id="newTask" onchange="ar()" placeholder="Neuer Aufgabenname">
+    </header>
+    <main class="main">
+        <form id="formAddTask" action="location.href">
+            <input class="description-field inpField" onchange="ar()" id="ip1" type="text" placeholder="New task name">
+            <div class="input__field clock-field">
+                <img src="img/clockForm.png" alt="">
+                <input class="inpField" type="text" onchange="ar()" id="ip2" placeholder="Frist setzen">
+            </div>
+            <div class="input__field user-field">
+                <img src="img/userForm.png" alt="">
+                <input class="inpField" type="text" onchange="ar()" id="ip3" placeholder="Stunden für den Kunden einstellen">
+            </div>
+            <div class="input__field user-field">
+                <img src="img/userForm.png" alt="">
+                <input class="inpField" type="text" onchange="ar()" id="ip4" placeholder="Stunden für den Freelancer einstellen">
+            </div>
+            <div class="input__field area-field">
+                <img src="img/left-alignmentForm.png" alt="">
+                <textarea class="inpField" id="ip44" onchange="ar()" cols="30" placeholder="Beschreibung in Deutsch"
+                    rows="1"></textarea>
+            </div>
+            <div class="input__field area-field">
+                <img src="img/left-alignmentForm.png" alt="">
+                <textarea class="inpField" id="ip45" onchange="ar()" cols="30" placeholder="Description in English"
+                    rows="1"></textarea>
+            </div>
+            <div class="input__field user-field">
+                <img src="img/caseForm.png" alt="">
+                <input class="inpField" type="text" onchange="ar()" id="ip5" readonly onclick="myFunction()"
+                    placeholder="Projekt auswählen">
+                <div class="dropdown-content dropContent" id="dropContent">
+                    <a>lkerkuchеen.de</a>
+                    <a>Isomatte.te</a>
+                    <a>erznasche.tle</a>
+                    <a>laminathandel.de</a>
+                    <a>musikanlage.de</a>
+                    <a>lkerkuchen.de</a>
+                    <a>Isomatte.te</a>
+                    <a>erznasche.tle</a>
+                    <a>musikanlage.de</a>
+                    <a>llovecoffee.tle</a>
+                    <a>IM.en.tle</a>
+                    <a>leminatM1a.el de</a>
+                    <a>stutlioade</a>
+                    <a>aktionstaacom</a>
+                    <a>prelsfelLde</a>
+                    <a>otogeschenke.de</a>
+                    <a>pharme-maschnen..m</a>
+                    <a>schufafreiM1a.y.com</a>
+                    <a>dslprofi.de</a>
+                    <a>dslhelden.de</a>
+                </div>
+
+            </div>
+            <div class="input__field">
+                <img src="img/clipForm.png" alt="">
+                <input class="inpField" type="text" onchange="ar()" id="ip6" placeholder="Dateien anhängen">
+            </div>
+        </form>
+    </main>
+    <footer class="footer">
+        <button id="buttonAdd" onclick="location.href = 'index.html';" disabled>poste die Aufgabe</button>
+    </footer>
+</body>
+
+</html>
+<script>
+    let but = document.getElementById('buttonAdd');
+    but.style.opacity = '0.3';
+    let ip0 = document.getElementById('newTask');
+    let ip1 = document.getElementById('ip1');
+    let ip2 = document.getElementById('ip2');
+    let ip3 = document.getElementById('ip3');
+    let ip4 = document.getElementById('ip4');
+    let ip5 = document.getElementById('ip5');
+    let ip6 = document.getElementById('ip6');
+    let ip44 = document.getElementById('ip44');
+    let ip45 = document.getElementById('ip44');
+    function ar() {
+        if (ip1.value != '') {
+            if (ip2.value != '') {
+                if (ip3.value != '') {
+                    if (ip0.value != '') {
+                        if (ip4.value != '') {
+                            if (ip44.value != '') {
+                                if (ip45.value != '') {
+                                    if (ip6.value != '') {
+                                        if (ip5.value != '') {
+                                            but.disabled = false;
+                                            but.style.opacity = "1";
+                                        } else {
+                                            but.disabled = true;
+                                            but.style.opacity = "0.3";
+                                        }
+                                    } else {
+                                        but.disabled = true;
+                                        but.style.opacity = "0.3";
+                                    }
+                                } else {
+                                    but.disabled = true;
+                                    but.style.opacity = "0.3";
+                                }
+
+                            } else {
+                                but.disabled = true;
+                                but.style.opacity = "0.3";
+                            }
+                        } else {
+                            but.disabled = true;
+                            but.style.opacity = "0.3";
+                        }
+                    } else {
+                        but.disabled = true;
+                        but.style.opacity = "0.3";
+                    }
+                } else {
+                    but.disabled = true;
+                    but.style.opacity = "0.3";
+                }
+            } else {
+                but.disabled = true;
+                but.style.opacity = "0.3";
+            }
+        } else {
+            but.disabled = true;
+            but.style.opacity = "0.3";
+        };
+    }
+
+    ip0.addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            ip1.select();
+        }
+    }); ip1.addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            ip2.select();
+        }
+    }); ip2.addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            ip3.select();
+        }
+    }); ip3.addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            ip4.select();
+        }
+
+    }); ip4.addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            ip44.select();
+        }
+
+    }); ip5.addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            ip6.select();
+        }
+    });
+    window.onload = function () {
+        document.getElementById("newTask").value = sessionStorage.getItem('taskName');
+    };
+
+
+
+</script>
+<script>
+
+    let contentProject = document.getElementById("dropContent");
+    function Disp() {
+
+        contentProject.style.display = 'none'
+    }
+    function myFunction() {
+
+
+        if (contentProject.style.display == 'none') {
+            contentProject.style.display = 'block'
+        } else
+            contentProject.style.display = 'none'
+
+        event.stopPropagation();
+
+    };
+    for (let dropContent of document.querySelectorAll('.dropContent')) {
+        dropContent.onclick = setProj;
+
+        function setProj(e) {
+            let target = e.target.closest("a");
+            if (!target) return;
+            ip5.value = target.textContent;
+            dropContent.style.display = 'none';
+
+
+
+            event.stopPropagation();
+        }
+    };
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+<script>
+    (function ($) {
+
+        $.fn.autoResize = function (options) {
+
+            // Just some abstracted details,
+            // to make plugin users happy:
+            var settings = $.extend({
+                onResize: function () { },
+                animate: true,
+                animateDuration: 150,
+                animateCallback: function () { },
+                extraSpace: 0,
+                limit: 1000
+            }, options);
+
+            // Only textarea's auto-resize:
+            this.filter('textarea').each(function () {
+
+                // Get rid of scrollbars and disable WebKit resizing:
+                var textarea = $(this).css({ resize: 'none', 'overflow-y': 'hidden' }),
+
+                    // Cache original height, for use later:
+                    origHeight = textarea.height(),
+
+                    // Need clone of textarea, hidden off screen:
+                    clone = (function () {
+
+                        // Properties which may effect space taken up by chracters:
+                        var props = ['height', 'width', 'lineHeight', 'textDecoration', 'letterSpacing'],
+                            propOb = {};
+
+                        // Create object of styles to apply:
+                        $.each(props, function (i, prop) {
+                            propOb[prop] = textarea.css(prop);
+                        });
+
+                        // Clone the actual textarea removing unique properties
+                        // and insert before original textarea:
+                        return textarea.clone().removeAttr('id').removeAttr('name').css({
+                            position: 'absolute',
+                            top: 0,
+                            left: -9999
+                        }).css(propOb).attr('tabIndex', '-1').insertBefore(textarea);
+
+                    })(),
+                    lastScrollTop = null,
+                    updateSize = function () {
+
+                        // Prepare the clone:
+                        clone.height(0).val($(this).val()).scrollTop(10000);
+
+                        // Find the height of text:
+                        var scrollTop = Math.max(clone.scrollTop(), origHeight) + settings.extraSpace,
+                            toChange = $(this).add(clone);
+
+                        // Don't do anything if scrollTip hasen't changed:
+                        if (lastScrollTop === scrollTop) { return; }
+                        lastScrollTop = scrollTop;
+
+                        // Check for limit:
+                        if (scrollTop >= settings.limit) {
+                            $(this).css('overflow-y', '');
+                            return;
+                        }
+                        // Fire off callback:
+                        settings.onResize.call(this);
+
+                        // Either animate or directly apply height:
+                        settings.animate && textarea.css('display') === 'block' ?
+                            toChange.stop().animate({ height: scrollTop }, settings.animateDuration, settings.animateCallback)
+                            : toChange.height(scrollTop);
+                    };
+
+                // Bind namespaced handlers to appropriate events:
+                textarea
+                    .unbind('.dynSiz')
+                    .bind('keyup.dynSiz', updateSize)
+                    .bind('keydown.dynSiz', updateSize)
+                    .bind('change.dynSiz', updateSize);
+
+            });
+
+            // Chain:
+            return this;
+
+        };
+
+
+
+    })(jQuery);
+    $('textarea').autoResize();
+</script>

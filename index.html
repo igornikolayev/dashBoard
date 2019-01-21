@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Dashbord</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	 crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="bootstrap-datepicker.css">
+	<script src="bootstrap-datepicker.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.22/dist/vue.js"></script>
+
+</head>
+
+<body onclick="Hide()">
+	<div id="mainHead" style="display: flex;">
+		<aside class="menu">
+			<div class="menu__header">
+				<div class="logo-user fiolet">
+					ВК
+				</div>
+				<h1 class="menu-text_top ">Viktor </h1>
+			</div>
+			<div class="menu__block">
+				<h1 class="menu-text menu-text_team">Team</h1>
+				<div class="team__users">
+					<div class="logo-user dark-blue">ПД</div>
+					<div class="logo-user dark-pink">НС</div>
+					<div class="logo-user fiolet">ВК</div>
+					<div class="logo-user green">ПД</div>
+					<div class="logo-user yellow">НС</div>
+					<div class="logo-user pink">ВК</div>
+					<div class="logo-user light-blue">ПД</div>
+					<div class="logo-user add-user gray"> <img src="img/plus.png" alt=""></div>
+				</div>
+			</div>
+			<div class="menu__block">
+				<h1 class="menu-text menu-text_client">Clients</h1>
+				<div class="team__users">
+					<div class="logo-user dark-blue">ПД</div>
+					<div class="logo-user dark-pink">НС</div>
+					<div class="logo-user fiolet">ВК</div>
+					<div class="logo-user green">ПД</div>
+					<div class="logo-user yellow">НС</div>
+					<div class="logo-user pink">ВК</div>
+					<div class="logo-user light-blue">ПД</div>
+					<div class="logo-user add-user gray"> <img src="img/plus.png" alt=""></div>
+				</div>
+			</div>
+			<div class="menu__block">
+				<div class="menu__project__text-container">
+					<h1 class="menu-text">Projekten</h1>
+					<div class="logo-user gray add-project"> <img src="img/plus.png" alt=""></div>
+				</div>
+				<div class="menu__projects">
+					<div id="menu__projects-block" class="menu__projects-block">
+						<div v-for="item in listProjects" :key="item.id">
+							<p class="menu__project-text">{{item}}</p>
+						</div>
+					</div>
+					<a class="menu__project-more">mehr</a>
+				</div>
+			</div>
+			<div class="menu__block">
+				<h1 class="menu-text menu-text_bottom ">Rechnungen</h1>
+			</div>
+			<div class="menu__info">
+				<div class="menu__info__container">
+					<img src="img/setting.png" alt="">
+					<p class="menu__info-text-top">Einstellungen</p>
+				</div>
+				<div class="menu__info__container">
+					<img src="img/logo.png" alt="">
+					<p class="menu__info-text-bottom">Über uns</p>
+				</div>
+			</div>
+		</aside>
+		<main class="main">
+			<header class="header">
+				<div class="header__text">laminathandel.de</div>
+				<div class="header__sort">
+					<p class="header__sort__text">sortieren nach:</p>
+					<img src="img/sort.png" alt="sort">
+					<input class="header__sort__list" id="sortField" onclick="showList()" value="Projektname" readonly></input>
+					<div class="list" id="listSort">
+						<ul>
+							<li class="sortItem" onclick="chooseSort(0)">Dauer</li>
+							<li class="sortItem" @click="sortTask" onclick="chooseSort(1)">Projektname</li>
+							<li class="sortItem" onclick="chooseSort(2)">Anzahl der Stunden</li>
+						</ul>
+					</div>
+				</div>
+			</header>
+
+			<div class="tasks">
+				<div class="tasks__block-add">
+					<img src="img/plus-big.png" alt="" class="tasks__block__add-image">
+					<input class="tasks__block__add-input" id="addNewTask" placeholder="Neue Aufgabe" type="text">
+				</div>
+				<div v-for="(task, i ) in topic" :key="task.id">
+					<div class="tasks__block">
+						<div class="tasks__block__header">
+							<div class="tasks__block__header__text">
+								<div class="tasks__block__header__status">
+									<button class="stastus__choose">
+										{{status[i]}}
+									</button>
+									<ul class="dropStatus">
+										<li>
+											im process
+										</li>
+										<li>
+											erledigt
+										</li>
+									</ul>
+								</div>
+								<input class="tasks__block__header__data" value="Heute">
+							</div>
+							<div class="tasks__block__header__buttons">
+								<button class="tasks__block__header__buttons__button1">
+									<img src="img/chat.png" alt="">
+									<div v-if="notication[i]>0">
+										<span class="message">
+											{{notication[i]}}
+										</span>
+									</div>
+								</button>
+								<button class="tasks__block__header__buttons__button2"> <img src="img/delete.png" alt=""></button>
+							</div>
+						</div>
+						<p>{{topic[i]}}</p>
+						<div class="tasks__block__footer">
+							<div class="dropdown">
+								<button class="butInput tasks__block__footer__text">{{listProjectsTask[i]}}</button>
+								<div class="dropdown-content dropContent">
+									<div class="search">
+										<input type="text" class="myInput">
+										<img src="img/search.png" alt="">
+									</div>
+									<div v-for="item in listProjects" :key="item.id">
+										<a>{{item}}</a>
+									</div>
+								</div>
+							</div>
+
+							<div class="tasks__block__footer__times">
+								<div class="lesstime">
+									<input class="tasks__block__footer__time inputLessTime" readonly placeholder="-1.30" />
+									<div class="listForTimeMinus">
+										<ul>
+											<li>-0.15</li>
+											<li>-0.30</li>
+											<li>-0.45</li>
+											<li>-1.00</li>
+											<li>-1.15</li>
+											<li>-1.30</li>
+											<li>-1.45</li>
+											<li>-2.00</li>
+											<li>-2.15</li>
+											<li>-2.30</li>
+										</ul>
+									</div>
+								</div>
+								<div class="moretime">
+									<input class="tasks__block__footer__time inputMoreTime" readonly value="+1.30" />
+									<div class="listForTimePlus">
+										<ul>
+											<li>+0.15</li>
+											<li>+0.30</li>
+											<li>+0.45</li>
+											<li>+1.00</li>
+											<li>+1.15</li>
+											<li>+1.30</li>
+											<li>+1.45</li>
+											<li>+2.00</li>
+											<li>+2.15</li>
+											<li>+2.30</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</main>
+	</div>
+</body>
+
+</html>
+<script>
+	let vueList = new Vue({
+		el: '#mainHead',
+		data: {
+
+			topic: [],
+			listProjects: [],
+			dateMinus: [],
+			datePlus: [],
+			deadLine: [],
+			listProjectsTask: [],
+			timeList: [],
+			notication: [],
+			status: [],
+			sortParam: ''
+		},
+		methods: {
+			sortTask() {
+				return this.topic.sort(function (a, b) {
+					return (a.toLowerCase() > b.toLowerCase()) ? 1 : -1;
+				});
+
+			}
+		}
+
+	});
+	vueList.topic.push("Mail marketing vorbereiten", "ail marketing vorbereiten", "E-Mail marketing vorbereiten", "E-Mail marketing vorbereiten", "E-Mail marketing vorbereiten", "E-Mail marketing vorbereiten", "E-Mail marketing vorbereiten", "E-Mail marketing vorbereiten", "E-Mail marketing vorbereiten");
+	vueList.listProjects.push('lkerkuchen.de', 'Isomatte.te', 'erznasche.tle', 'musikanlage.de', 'llovecoffee.tle', 'IM.en.tle', 'leminatM1a.el de', 'stutlioade', 'aktionstaacom', 'prelsfelLde', 'otogeschenke.de', 'pharme - maschnen..m', 'schufafreiM1a.y.com', 'dslprofi.de', 'dslhelden.de');
+	vueList.listProjectsTask.push('laminathandel.de', 'laminathandel.de', 'laminathandel.de', 'laminathandel.de', 'laminathandel.de', 'laminathandel.de', 'laminathandel.de', 'laminathandel.de', 'laminathandel.de')
+	vueList.dateMinus.push('-1.30', '-1.30', '-1.30', '-1.30', '-1.30', '-1.30', '-1.30', '-1.30', '-1.30');
+	vueList.datePlus.push('+1.30', '+1.30', '+1.30', '+1.30', '+1.30', '+1.30', '+1.30', '+1.30', '+1.30');
+	vueList.deadLine.push('Heute', 'Heute', 'Heute', 'Heute', 'Heute', 'Heute', 'Heute', 'Heute', 'Heute');
+	vueList.notication.push(5, 0, 12, 0, 1, 0, 0, 0, 3);
+	vueList.status.push('im process', 'im process', 'im process', 'im process', 'im process', 'im process', 'im process', 'im process', 'im process')
+</script>
+
+<script>
+	let contentProject = document.getElementsByClassName("dropContent");
+	let statusList = document.getElementsByClassName('dropStatus');
+	let buttonChoose = document.getElementsByClassName('stastus__choose');
+	let bbbton = document.getElementsByClassName("butInput");
+
+
+	for (let index = 0; index < bbbton.length; index++) {
+		buttonChoose[index].onclick = myFunction;
+		function myFunction() {
+
+			for (let i = 0; i < plus.length; i++) {
+				plus[i].style.display = 'none';
+				minus[i].style.display = 'none';
+				contentProject[i].style.display = 'none';
+			}
+
+			for (let ind = 0; ind < plus.length; ind++) {
+
+				statusList[ind].style.display = 'none';
+			}
+
+			if (statusList[index].style.display == 'none') {
+				statusList[index].style.display = 'block'
+			} else
+				statusList[index].style.display = 'none'
+			event.stopPropagation();
+
+		};
+
+
+	}
+	for (let dropContent of document.querySelectorAll('.dropStatus')) {
+		let butInput = dropContent.parentElement.querySelector('.stastus__choose');
+		dropContent.onclick = setProj;
+
+		function setProj(e) {
+			let target = e.target.closest("li");
+			if (!target) return;
+			butInput.innerHTML = target.textContent;
+			dropContent.style.display = 'none'
+		}
+	};
+
+	for (let index = 0; index < bbbton.length; index++) {
+		bbbton[index].onclick = myFunction;
+		function myFunction() {
+
+			for (let i = 0; i < plus.length; i++) {
+				plus[i].style.display = 'none';
+				minus[i].style.display = 'none';
+				statusList[i].style.display = 'none';
+
+			}
+
+			for (let ind = 0; ind < plus.length; ind++) {
+
+				contentProject[ind].style.display = 'none';
+
+			}
+
+			if (contentProject[index].style.display == 'none') {
+				contentProject[index].style.display = 'block'
+			} else
+				contentProject[index].style.display = 'none'
+			event.stopPropagation();
+
+		};
+
+
+	}
+
+	for (let dropContent of document.querySelectorAll('.dropContent')) {
+		let butInput = dropContent.parentElement.querySelector('.butInput');
+		dropContent.onclick = setProj;
+
+		function setProj(e) {
+			let target = e.target.closest("a");
+			if (!target) return;
+			butInput.innerHTML = target.textContent;
+			dropContent.style.display = 'none'
+		}
+	};
+
+	let myinput = document.getElementsByClassName("myInput");
+	for (let index = 0; index < myinput.length; index++) {
+		myinput[index].onkeyup = filterFunction;
+
+		function filterFunction() {
+			var filter, ul, li, a, i;
+			filter = myinput[index].value.toUpperCase();
+			div = document.getElementsByClassName("dropdown-content");
+			a = div[index].getElementsByTagName("a");
+			for (i = 0; i < a.length; i++) {
+				txtValue = a[i].textContent || a[i].innerText;
+				if (txtValue.toUpperCase().indexOf(filter) > -1) {
+					a[i].style.display = "";
+				} else {
+					a[i].style.display = "none";
+				}
+			}
+		};
+	}
+</script>
+<script>
+
+	$('.menu__project-more').click(function () {
+
+		var div = $('#menu__projects-block');
+
+		if (div.height() == 140)
+			div.height(543);
+
+		else
+
+			div.height(140);
+
+	});
+
+</script>
+<script>
+	let plus = document.getElementsByClassName('listForTimePlus');
+	let minus = document.getElementsByClassName('listForTimeMinus');
+	let inputLess = document.getElementsByClassName('inputLessTime');
+	let inputMore = document.getElementsByClassName('inputMoreTime');
+	for (let index = 0; index < minus.length; index++) {
+
+		inputLess[index].onclick = showListminus;
+		function showListminus() {
+
+			for (let i = 0; i < plus.length; i++) {
+
+				statusList[i].style.display = 'none';
+				plus[i].style.display = 'none';
+				minus[i].style.display = 'none';
+
+			}
+			for (let i = 0; i < plus.length; i++) {
+				contentProject[i].style.display = 'none';
+			}
+
+			if (minus[index].style.display == 'none') {
+
+				minus[index].style.display = 'block'
+				plus[index].style.display = 'none'
+
+			} else
+				minus[index].style.display = 'none';
+			event.stopPropagation();
+
+		};
+	}
+
+	for (let index = 0; index < plus.length; index++) {
+		inputMore[index].onclick = showListplus;
+
+		function showListplus() {
+
+			for (let i = 0; i < plus.length; i++) {
+				plus[i].style.display = 'none';
+				minus[i].style.display = 'none';
+				contentProject[i].style.display = 'none';
+				statusList[i].style.display = 'none';
+			}
+			minus[index].style.display = 'none';
+			contentProject[index].style.display = 'none';
+			if (plus[index].style.display == 'none') {
+				plus[index].style.display = 'block';
+
+				minus[index].style.display = 'none';
+			} else
+				plus[index].style.display = 'none';
+			event.stopPropagation();
+		};
+
+
+	}
+
+	for (let plusAdd of document.querySelectorAll('.listForTimePlus')) {
+		let inputAdd = plusAdd.parentElement.querySelector('.inputMoreTime');
+		plusAdd.onclick = setTime;
+
+		function setTime(e) {
+			let target = e.target.closest("li");
+			if (!target) return;
+			inputAdd.value = target.textContent;
+		}
+	};
+	for (let plusInc of document.querySelectorAll('.listForTimeMinus')) {
+		let inputInc = plusInc.parentElement.querySelector('.inputLessTime');
+		plusInc.onclick = setTime;
+
+		function setTime(e) {
+			let target = e.target.closest("li");
+			if (!target) return;
+			inputInc.value = target.textContent;
+		}
+	}
+
+
+</script>
+
+<script>//sort List
+
+	let input = document.getElementById('sortField');
+	let items = document.getElementsByClassName('sortItem');
+	let list = document.getElementById('listSort');
+
+	function chooseSort(index) {
+		input.value = items[index].innerHTML;
+		list.style.display = 'none'
+	};
+	function showList() {
+		if (list.style.display == 'none') {
+			list.style.display = 'block'
+		} else
+			list.style.display = 'none'
+		event.stopPropagation();
+	};
+
+	function Hide() {
+		for (let index = 0; index < minus.length; index++) {
+			minus[index].style.display = 'none';
+			plus[index].style.display = 'none';
+			contentProject[index].style.display = 'none';
+
+			statusList[index].style.display = 'none';
+		}
+		list.style.display = 'none';
+	}
+</script>
+<script>
+	$(function () {
+		$('.tasks__block__header input').datepicker({
+		});
+	});
+</script>
+<script>
+	let task = document.getElementById('addNewTask');
+	task.addEventListener("keyup", function (event) {
+		event.preventDefault();
+		if (task.value != '') {
+
+			if (event.keyCode === 13) {
+				location.href = 'formAdd.html';
+				sessionStorage.setItem("taskName", task.value);
+			}
+		}
+	});
+
+</script>
